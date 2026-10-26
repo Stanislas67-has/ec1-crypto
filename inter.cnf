@@ -1,0 +1,37 @@
+# Configuration de l'AC intermediaire (signe les certificats serveur et client)
+[ca]
+default_ca = CA_inter
+
+[CA_inter]
+dir               = ./inter
+database          = $dir/index.txt
+serial            = $dir/serial
+crlnumber         = $dir/crlnumber
+new_certs_dir     = $dir/newcerts
+certificate       = $dir/inter.crt
+private_key       = $dir/inter.key
+default_md        = sha256
+policy            = policy_feuille
+unique_subject    = no
+default_crl_days  = 7
+# Copie le SAN de la CSR. ATTENTION : l'AC doit avoir verifie la CSR avant de signer.
+copy_extensions   = copy
+
+[policy_feuille]
+countryName       = optional
+organizationName  = optional
+commonName        = supplied
+
+[ext_serveur]
+basicConstraints        = critical,CA:FALSE
+keyUsage                = critical,digitalSignature
+extendedKeyUsage        = serverAuth
+subjectKeyIdentifier    = hash
+authorityKeyIdentifier  = keyid:always
+
+[ext_client]
+basicConstraints        = critical,CA:FALSE
+keyUsage                = critical,digitalSignature
+extendedKeyUsage        = clientAuth
+subjectKeyIdentifier    = hash
+authorityKeyIdentifier  = keyid:always
