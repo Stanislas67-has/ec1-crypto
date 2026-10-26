@@ -1,9 +1,0 @@
-*.key
-*.pem
-!**/crls.pem
-*.csr
-__pycache__/
-.pytest_cache/
-.venv/
-*.srl
-# TP2/TP3 : on ne publie JAMAIS de cle privee
