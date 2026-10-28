@@ -34,16 +34,17 @@ Aucune clé privée n'est versionnée (voir `.gitignore`).
 
 5-Limites des CRL. Taille qui grossit, délai de publication (le client peut utiliser une CRL périmée), téléchargement coûteux, vérification souvent « soft-fail ». OCSP : état en temps réel pour un seul certificat, mais requiert un serveur disponible, révèle au répondeur les sites visités (atténué par l'OCSP stapling). Certificats très courts : le certificat expire de lui-même en quelques jours, ce qui réduit le besoin de révocation, à condition d'automatiser le renouvellement.
 
-6-Politique de certification minimale.
-    *Seuls les administrateurs du domaine tp.local peuvent demander un certificat serveur.
-    *Les demandes de client sont faites par les utilisateurs de l'université, via leur compte.
-    *L'identité est vérifiée avant émission (compte institutionnel authentifié, ou contrôle effectif du nom de domaine demandé).
-    *Le demandeur génère sa clé ; seule la CSR est transmise.
-    *Les certificats serveur et client durent 90 jours maximum.
-    *L'AC intermédiaire dure 5 ans, la racine 10 ans, et la racine est hors ligne.
-    *Les noms émis sont limités à tp.local par contrainte de nom.
-    *Toute compromission de clé est signalée immédiatement ; le certificat est révoqué.
-    *Les CRL sont publiées au plus tard 24 h après une révocation et renouvelées tous les 7 jours.
-    *Les émissions et révocations sont journalisées (registre index.txt) et auditées.
+6-Politique de certification minimale. <br>
+    *Seuls les administrateurs du domaine tp.local peuvent demander un certificat serveur. <br>
+    *Les demandes de client sont faites par les utilisateurs de l'université, via leur compte. <br>
+    *L'identité est vérifiée avant émission (compte institutionnel authentifié, ou contrôle effectif du nom de domaine demandé). <br>
+    *Le demandeur génère sa clé ; seule la CSR est transmise. <br>
+    *Les certificats serveur et client durent 90 jours maximum. <br>
+    *L'AC intermédiaire dure 5 ans, la racine 10 ans, et la racine est hors ligne. <br>
+    *Les noms émis sont limités à tp.local par contrainte de nom. <br>
+    *Toute compromission de clé est signalée immédiatement ; le certificat est révoqué. <br>
+    *Les CRL sont publiées au plus tard 24 h après une révocation et renouvelées tous les 7 jours. <br>
+    *Les émissions et révocations sont journalisées (registre index.txt) et auditées. <br>
+
 
 
