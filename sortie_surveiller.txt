@@ -1,0 +1,8 @@
+NIVEAU     JOURS  SUJET                  FICHIER
+OK            89  alice@tp.local         alice.crt
+OK            89  bob@tp.local           bob.crt
+CRITIQUE       4  court.tp.local         court.crt
+OK          1824  Intermediaire TP       inter.crt
+OK          3649  Racine TP              racine.crt
+OK            89  www.tp.local           serveur.crt
+code de sortie : 2

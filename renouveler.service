@@ -1,0 +1,7 @@
+[Unit]
+Description=Renouvellement du certificat du serveur (TP3)
+
+[Service]
+Type=oneshot
+Environment=PKI_DIR=/opt/tp-pki
+ExecStart=/opt/tp3/renouveler.sh

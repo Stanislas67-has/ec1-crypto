@@ -1,0 +1,10 @@
+[Unit]
+Description=Verification quotidienne du certificat du serveur
+
+[Timer]
+OnCalendar=daily
+RandomizedDelaySec=1h
+Persistent=true
+
+[Install]
+WantedBy=timers.target
