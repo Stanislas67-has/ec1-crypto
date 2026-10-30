@@ -63,7 +63,7 @@ cd tp1 && pytest -v
    9. Les CRL sont publiées au plus tard 24 h après une révocation et renouvelées tous les 7 jours.
    10. Émissions et révocations sont journalisées (`index.txt`) et auditées.
   
-## Réponses aux questions d tp3
+## Réponses aux questions du tp3
 | Fichier | Rôle |
 |---|---|
 | `www.tp.local.conf` | Configuration nginx (TLS 1.2/1.3, mTLS, CRL, HSTS) |
