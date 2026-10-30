@@ -62,4 +62,6 @@ cd tp1 && pytest -v
    8. Toute compromission de clé est signalée immédiatement ; le certificat est révoqué.
    9. Les CRL sont publiées au plus tard 24 h après une révocation et renouvelées tous les 7 jours.
    10. Émissions et révocations sont journalisées (`index.txt`) et auditées.
+  
+## Réponses aux questions d tp3
 
