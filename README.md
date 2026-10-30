@@ -14,3 +14,5 @@ python3 -m venv .venv && source .venv/bin/activate
 pip install cryptography argon2-cffi pytest
 cd tp1 && pytest -v
 ```
+
+## Réponses aux questions du tp1
