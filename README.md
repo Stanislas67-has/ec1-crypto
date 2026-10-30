@@ -46,5 +46,6 @@ Aucune clé privée n'est versionnée (voir `.gitignore`).
     *Les CRL sont publiées au plus tard 24 h après une révocation et renouvelées tous les 7 jours. <br>
     *Les émissions et révocations sont journalisées (registre index.txt) et auditées. <br>
 
+    ## Réponse aux questions du tp3
 
 
