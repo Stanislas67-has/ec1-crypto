@@ -82,3 +82,23 @@ Ordre d'exécution (après `tp2/pki.sh` et `tp2/verifier.sh`) :
 python3 surveiller.py ../tp2/pki
 ./renouveler.sh
 ```
+
+1.Le client la possède déjà dans son magasin de confiance : c'est ce qui la rend « de confiance ». La renvoyer alourdit la poignée de main pour rien, et un client ne peut de toute façon pas se fier à une racine fournie par le serveur lui-même. L'intermédiaire, lui, doit être envoyé car le client ne le connaît pas.<br>
+
+2.Les tickets sont chiffrés avec une clé du serveur. Si cette clé n'est pas renouvelée, quiconque la vole (ou la récupère plus tard) peut déchiffrer des sessions enregistrées auparavant, ce qui annule la confidentialité persistante. Sans tickets, chaque session repose uniquement sur des clés éphémères.<br>
+
+3. HSTS ordonne au navigateur de n'utiliser que HTTPS pour ce site pendant `max-age` secondes (ici un an). Il protège contre le SSL stripping et les rétrogradations vers HTTP par un attaquant sur le réseau. Limite : il n'agit qu'après une première visite en HTTPS (sauf liste de préchargement).<br>
+
+4.Un renouvellement manuel devient ingérable : plusieurs renouvellements par an et par certificat, avec un risque d'oubli, donc de panne par expiration. Il faut automatiser (ACME, scripts comme `renouveler.sh`), superviser les expirations (`surveiller.py`) et connaître son inventaire de certificats.<br>
+
+5.Certains clients (navigateurs, Windows) récupèrent l'intermédiaire manquant grâce à l'extension AIA du certificat ou à un cache d'intermédiaires déjà vus. D'autres (curl, OpenSSL, Java, applications mobiles, scripts) ne le font pas et refusent la connexion. Le site « marche dans mon navigateur » mais échoue pour les API. Il faut toujours envoyer la chaîne complète.<br>
+
+6. **Fuite de la clé privée du serveur.**
+   1. Déclarer l'incident et isoler : considérer le certificat comme compromis.
+   2. Générer une nouvelle clé et une nouvelle CSR (ne jamais réutiliser la clé).
+   3. Émettre le nouveau certificat et le déployer (`renouveler.sh` avec `FORCE=1`).
+   4. Révoquer l'ancien (`openssl ca -revoke … -crl_reason keyCompromise`), régénérer et publier les CRL (`maj_crl.sh`).
+   5. Redémarrer nginx pour invalider les clés de tickets et les sessions.
+   6. Enquêter sur la cause de la fuite (accès, sauvegardes, dépôt de code), consulter les journaux depuis la date possible de fuite.
+   7. Prévenir les personnes concernées et rédiger un retour d'expérience.
+   Le trafic passé reste protégé grâce à ECDHE (confidentialité persistante), mais jusqu'à la révocation un attaquant peut se faire passer pour le serveur.
