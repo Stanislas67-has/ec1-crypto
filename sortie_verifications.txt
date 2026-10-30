@@ -1,0 +1,47 @@
+--- 1. serveur / www.tp.local (attendu : OK)
+serveur.crt: OK
+--- 2. serveur / autre.example (attendu : echec)
+CN = www.tp.local
+error 62 at 0 depth lookup: hostname mismatch
+error serveur.crt: verification failed
+--- 3. alice / purpose sslclient (attendu : OK)
+alice.crt: OK
+--- 4. serveur utilise comme client (attendu : echec)
+CN = www.tp.local
+error 26 at 0 depth lookup: unsuitable certificate purpose
+error serveur.crt: verification failed
+--- 5. certificat pour www.example.com (hors contrainte de nom)
+Database updated
+(l'AC a signe) ; validation (attendu : permitted subtree violation) :
+CN = www.example.com
+error 47 at 0 depth lookup: permitted subtree violation
+error example.crt: verification failed
+--- 6. revocation d'Alice (cle compromise)
+Revoking Certificate 2001.
+Database updated
+--- alice apres revocation (attendu : revoked)
+CN = alice@tp.local
+error 23 at 0 depth lookup: certificate revoked
+error alice.crt: verification failed
+--- serveur avec controle CRL (attendu : OK)
+serveur.crt: OK
+Certificate Revocation List (CRL):
+        Version 2 (0x1)
+        Signature Algorithm: ecdsa-with-SHA256
+        Issuer: C = BF, O = Universite TP, CN = Intermediaire TP
+        Last Update: Oct 29 20:57:08 2026 GMT
+        Next Update: Nov  5 20:57:08 2026 GMT
+        CRL extensions:
+            X509v3 CRL Number: 
+                8192
+Revoked Certificates:
+    Serial Number: 2001
+        Revocation Date: Oct 29 20:57:08 2026 GMT
+        CRL entry extensions:
+            X509v3 CRL Reason Code: 
+                Key Compromise
+    Signature Algorithm: ecdsa-with-SHA256
+    Signature Value:
+        30:45:02:21:00:c6:f1:d7:88:92:14:d5:c3:55:d1:2b:37:4c:
+        36:65:6d:aa:2a:c2:65:63:0b:c8:67:3e:de:24:68:63:18:84:
+        9b:02:20:5d:ba:01:cd:3a:f6:73:8d:bc:4d:43:91:2c:2e:87:
